@@ -6,7 +6,18 @@ const port = 8081; // Change this to the desired port number
 const baseurl = "/bhfl";
 app.use(bodyParser.json());
 
-app.post("/data", (req, res) => {
+//GET METHOD
+app.get(`${baseurl}`, (req, res) => {
+// Define the response JSON object
+const response = {
+operation_code: 1,
+};
+
+// Send the JSON response with a 200 status code
+res.status(200).json(response);
+});
+
+app.post(`${baseurl}/data`, (req, res) => {
 const inputData = req.body.data;
 const numbers = [];
 const alphabets = [];
@@ -29,8 +40,11 @@ sensitivity: "base",
 ) {
 highestAlphabet = item;
 }
+} else if (charCode >= 48 && charCode <= 57) {
+numbers.push(item);
+}
 } else {
-// Check if it's a number
+if (item.length > 1) {
 numbers.push(item);
 }
 }
@@ -38,9 +52,9 @@ numbers.push(item);
 
 const response = {
 is_success: true,
-user_id: "as3471",
+user_id: "Ankit_Singh_2001",
 email: "as3471@srmist.edu.in",
-roll_number: "RA2011003011337",
+roll_number: "RA20110003011337",
 numbers: numbers,
 alphabets: alphabets,
 highest_alphabet: highestAlphabet ? [highestAlphabet] : [],
